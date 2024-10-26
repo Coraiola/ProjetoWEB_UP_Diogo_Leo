@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header com a logo e links de navegação -->
+    <header>
+        <img src="logo.png" alt="Logo" />
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html">Login ou Cadastro</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Login/Cadastro</h1>
+        <form id="loginForm">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" required>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" required>
+
+            <button type="submit">Entrar</button>
+            <button type="button" id="registerBtn">Cadastrar</button>
+        </form>
+    </main>
+
+    <!-- Script para manipulação de dados e exibição dos itens -->
+    <script src="script.js"></script>
+</body>
+</html>

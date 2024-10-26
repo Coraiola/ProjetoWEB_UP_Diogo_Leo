@@ -1,0 +1,86 @@
+/* Estilo para o header */
+header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #2f8e41; /* Verde */
+    color: white;
+}
+
+header img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+header nav a {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo dos cards */
+#itensContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #f8f8f8;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.card h3 {
+    color: #2f8e41; /* Cor verde */
+}
+
+.card p {
+    color: #333;
+}
+
+/* Estilo básico do formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form input, form textarea, form button {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #2f8e41;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+form button:hover {
+    background-color: #277234;
+}
