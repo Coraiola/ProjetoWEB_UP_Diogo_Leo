@@ -13,13 +13,16 @@
         <nav>
             <a href="index.html">Home</a>
             <a id="authLink" href="administracao.html">Administração</a>
+            <a href="relatorio.html">Relatório</a>
             <a href="#" id="logoutLink">Logout</a>
         </nav>
     </header>
 
     <main>
         <h1>Página de Administração</h1>
-        <form id="adminForm">
+        
+        <!-- Formulário para cadastro de itens - só exibido se logado -->
+        <form id="adminForm" style="display: none;">
             <label for="itemName">Nome do Item:</label>
             <input type="text" id="itemName" required>
 
@@ -35,9 +38,8 @@
             <button type="submit">Cadastrar Item</button>
         </form>
 
-        <div id="itensContainer">
-            <!-- Exibição dos itens cadastrados em formato de card na administração -->
-        </div>
+        <!-- Container para exibir itens cadastrados como cards com opções de edição/exclusão -->
+        <div id="itensContainer"></div>
     </main>
 
     <!-- Script para manipulação de dados e exibição dos itens -->

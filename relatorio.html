@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header com a logo e links de navegação -->
+    <header>
+        <img src="logo.png" alt="Logo" />
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="administracao.html">Administração</a>
+            <a href="#" id="logoutLink">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Relatório de Itens Cadastrados</h1>
+        <table id="reportTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Valor</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linhas serão preenchidas dinamicamente -->
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Script para manipulação de dados e exibição dos itens -->
+    <script src="script.js"></script>
+</body>
+</html>
