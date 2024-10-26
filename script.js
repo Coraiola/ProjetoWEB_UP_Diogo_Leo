@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const items = JSON.parse(localStorage.getItem("items")) || [];
 
         itemsContainer.innerHTML = "";
-        items.forEach((item) => {
+        items.forEach((item, index) => {
             const card = document.createElement("div");
             card.className = "card";
             card.innerHTML = `
@@ -67,14 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h3>${item.name}</h3>
                 <p>${item.description}</p>
                 <p><strong>Valor:</strong> R$ ${item.value}</p>
+                ${isLoggedIn ? `
+                    <button onclick="editItem(${index})">Editar</button>
+                    <button onclick="deleteItem(${index})">Excluir</button>
+                ` : ''}
             `;
             itemsContainer.appendChild(card);
         });
-    }
-
-    // Exibir os itens na home se estiver na página index.html ou administracao.html
-    if (document.getElementById("itensContainer")) {
-        displayItems();
     }
 
     // Função para adicionar um novo item na página de administração
@@ -83,24 +82,18 @@ document.addEventListener("DOMContentLoaded", () => {
         adminForm.addEventListener("submit", (e) => {
             e.preventDefault();
 
-            // Coleta dos dados do formulário
             const name = document.getElementById("itemName").value;
             const value = document.getElementById("itemValue").value;
             const description = document.getElementById("itemDescription").value;
             const imageFile = document.getElementById("itemImage").files[0];
 
-            // Verificação de imagem e criação de URL
             if (imageFile) {
                 const reader = new FileReader();
                 reader.onload = function () {
                     const image = reader.result;
-
-                    // Adiciona o item ao LocalStorage
                     const items = JSON.parse(localStorage.getItem("items")) || [];
                     items.push({ name, value, description, image });
                     localStorage.setItem("items", JSON.stringify(items));
-
-                    // Limpa o formulário e exibe os itens atualizados
                     adminForm.reset();
                     displayItems();
                     alert("Item cadastrado com sucesso!");
@@ -110,5 +103,56 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Por favor, selecione uma imagem para o item.");
             }
         });
+    }
+
+    // Função para editar um item
+    window.editItem = (index) => {
+        const items = JSON.parse(localStorage.getItem("items")) || [];
+        const item = items[index];
+
+        document.getElementById("itemName").value = item.name;
+        document.getElementById("itemValue").value = item.value;
+        document.getElementById("itemDescription").value = item.description;
+        
+        const submitButton = document.querySelector("#adminForm button[type='submit']");
+        submitButton.textContent = "Atualizar Item";
+        submitButton.onclick = (e) => {
+            e.preventDefault();
+            item.name = document.getElementById("itemName").value;
+            item.value = document.getElementById("itemValue").value;
+            item.description = document.getElementById("itemDescription").value;
+
+            if (document.getElementById("itemImage").files[0]) {
+                const reader = new FileReader();
+                reader.onload = function () {
+                    item.image = reader.result;
+                    localStorage.setItem("items", JSON.stringify(items));
+                    displayItems();
+                    adminForm.reset();
+                    submitButton.textContent = "Cadastrar Item";
+                    submitButton.onclick = null;
+                };
+                reader.readAsDataURL(document.getElementById("itemImage").files[0]);
+            } else {
+                localStorage.setItem("items", JSON.stringify(items));
+                displayItems();
+                adminForm.reset();
+                submitButton.textContent = "Cadastrar Item";
+                submitButton.onclick = null;
+            }
+        };
+    };
+
+    // Função para excluir um item
+    window.deleteItem = (index) => {
+        const items = JSON.parse(localStorage.getItem("items")) || [];
+        items.splice(index, 1);
+        localStorage.setItem("items", JSON.stringify(items));
+        displayItems();
+        alert("Item excluído com sucesso!");
+    };
+
+    if (document.getElementById("itensContainer")) {
+        displayItems();
     }
 });

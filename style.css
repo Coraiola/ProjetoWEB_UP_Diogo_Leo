@@ -32,28 +32,43 @@ header nav a:hover {
 }
 
 .card {
-    width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    display: inline-block;
+    width: 250px;
+    border: 1px solid #ccc;
     padding: 16px;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+    margin: 16px;
+    border-radius: 8px;
+    background-color: #fff;
     text-align: center;
-    background-color: #f8f8f8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card img {
     width: 100%;
-    height: auto;
+    height: 150px;
+    object-fit: cover;
     border-radius: 4px;
 }
 
-.card h3 {
-    color: #2f8e41; /* Cor verde */
+.card button {
+    margin: 5px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-.card p {
-    color: #333;
+.card button:nth-child(5) {
+    background-color: #4CAF50;
+    color: white;
 }
+
+.card button:nth-child(6) {
+    background-color: #f44336;
+    color: white;
+}
+
 
 /* Estilo básico do formulário */
 form {
