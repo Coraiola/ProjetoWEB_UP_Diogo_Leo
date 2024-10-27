@@ -65,8 +65,7 @@ form input[type="file"] {
     box-sizing: border-box;
 }
 
-form button[type="submit"],
-form button[type="button"] {
+form button[type="submit"] {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -76,11 +75,9 @@ form button[type="button"] {
     border-radius: 5px;
     width: 100%;
     transition: background-color 0.3s ease;
-    margin-bottom: 10px; /* Espaço entre os botões */
 }
 
-form button[type="submit"]:hover,
-form button[type="button"]:hover {
+form button[type="submit"]:hover {
     background-color: #45a049;
 }
 

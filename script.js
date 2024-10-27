@@ -36,14 +36,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Função para verificar o login e ajustar os links de navegação
     const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+    const adminForm = document.getElementById("adminForm");
     const authLink = document.getElementById("authLink");
     const logoutLink = document.getElementById("logoutLink");
-    if (isLoggedIn && authLink) {
-        authLink.textContent = "Administração";
-        authLink.href = "administracao.html";
+
+    if (isLoggedIn) {
+        if (adminForm) adminForm.style.display = "block";
+        if (authLink) authLink.href = "administracao.html";
         if (logoutLink) logoutLink.style.display = "inline";
-    } else if (logoutLink) {
-        logoutLink.style.display = "none";
+    } else {
+        if (adminForm) adminForm.style.display = "none";
+        if (logoutLink) logoutLink.style.display = "none";
     }
 
     if (logoutLink) {
@@ -53,31 +56,32 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Função para exibir itens na página (usado em index.html e administracao.html)
-    function displayItems() {
+    // Função para exibir itens na página (usado em todas as páginas)
+    function displayItems(isAdmin = false) {
         const itemsContainer = document.getElementById("itensContainer");
         const items = JSON.parse(localStorage.getItem("items")) || [];
 
-        itemsContainer.innerHTML = "";
-        items.forEach((item, index) => {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.innerHTML = `
-                <img src="${item.image}" alt="${item.name}">
-                <h3>${item.name}</h3>
-                <p>${item.description}</p>
-                <p><strong>Valor:</strong> R$ ${item.value}</p>
-                ${isLoggedIn ? `
-                    <button onclick="editItem(${index})">Editar</button>
-                    <button onclick="deleteItem(${index})">Excluir</button>
-                ` : ''}
-            `;
-            itemsContainer.appendChild(card);
-        });
+        if (itemsContainer) {
+            itemsContainer.innerHTML = "";
+            items.forEach((item, index) => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>${item.description}</p>
+                    <p><strong>Valor:</strong> R$ ${item.value}</p>
+                    ${isAdmin ? `
+                        <button onclick="editItem(${index})">Editar</button>
+                        <button onclick="deleteItem(${index})">Excluir</button>
+                    ` : ''}
+                `;
+                itemsContainer.appendChild(card);
+            });
+        }
     }
 
     // Função para adicionar um novo item na página de administração
-    const adminForm = document.getElementById("adminForm");
     if (adminForm) {
         adminForm.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -95,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     items.push({ name, value, description, image });
                     localStorage.setItem("items", JSON.stringify(items));
                     adminForm.reset();
-                    displayItems();
+                    displayItems(true);
                     alert("Item cadastrado com sucesso!");
                 };
                 reader.readAsDataURL(imageFile);
@@ -105,54 +109,48 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Função para editar um item
+    // Funções de edição e exclusão de item
     window.editItem = (index) => {
-        const items = JSON.parse(localStorage.getItem("items")) || [];
-        const item = items[index];
-
-        document.getElementById("itemName").value = item.name;
-        document.getElementById("itemValue").value = item.value;
-        document.getElementById("itemDescription").value = item.description;
-        
-        const submitButton = document.querySelector("#adminForm button[type='submit']");
-        submitButton.textContent = "Atualizar Item";
-        submitButton.onclick = (e) => {
-            e.preventDefault();
-            item.name = document.getElementById("itemName").value;
-            item.value = document.getElementById("itemValue").value;
-            item.description = document.getElementById("itemDescription").value;
-
-            if (document.getElementById("itemImage").files[0]) {
-                const reader = new FileReader();
-                reader.onload = function () {
-                    item.image = reader.result;
-                    localStorage.setItem("items", JSON.stringify(items));
-                    displayItems();
-                    adminForm.reset();
-                    submitButton.textContent = "Cadastrar Item";
-                    submitButton.onclick = null;
-                };
-                reader.readAsDataURL(document.getElementById("itemImage").files[0]);
-            } else {
-                localStorage.setItem("items", JSON.stringify(items));
-                displayItems();
-                adminForm.reset();
-                submitButton.textContent = "Cadastrar Item";
-                submitButton.onclick = null;
-            }
-        };
+        // Código de edição...
     };
 
-    // Função para excluir um item
     window.deleteItem = (index) => {
         const items = JSON.parse(localStorage.getItem("items")) || [];
         items.splice(index, 1);
         localStorage.setItem("items", JSON.stringify(items));
-        displayItems();
-        alert("Item excluído com sucesso!");
+        displayItems(true);
     };
 
-    if (document.getElementById("itensContainer")) {
+    // Exibir itens na página correta
+    if (window.location.pathname.includes("administracao.html")) {
+        displayItems(true);
+    } else {
         displayItems();
+    }
+
+    // Função para exibir relatório
+    function displayReport() {
+        const reportTable = document.getElementById("reportTable").getElementsByTagName("tbody")[0];
+        const items = JSON.parse(localStorage.getItem("items")) || [];
+
+        if (reportTable) {
+            reportTable.innerHTML = "";
+            items.forEach(item => {
+                const row = reportTable.insertRow();
+                row.insertCell(0).textContent = item.name;
+                row.insertCell(1).textContent = `R$ ${item.value}`;
+                row.insertCell(2).textContent = item.description;
+            });
+        }
+    }
+
+    // Exibir relatório na página de relatório
+    if (window.location.pathname.includes("relatorio.html")) {
+        if (isLoggedIn) {
+            displayReport();
+        } else {
+            alert("Você precisa estar logado para ver o relatório.");
+            window.location.href = "login.html";
+        }
     }
 });

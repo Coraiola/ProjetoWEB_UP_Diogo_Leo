@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,37 +7,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Header com a logo e links de navegação -->
     <header>
-        <img src="logo.png" alt="Logo">
+        <img src="logo.png" alt="Logo" />
         <nav>
             <a href="index.html">Home</a>
+            <a id="authLink" href="administracao.html">Administração</a>
             <a href="relatorio.html">Relatório</a>
-            <a href="#" id="logoutLink">Sair</a>
+            <a href="#" id="logoutLink">Logout</a>
         </nav>
     </header>
 
     <main>
-        <h2>Cadastro de Item</h2>
-        <form id="itemForm">
+        <h1>Página de Administração</h1>
+        
+        <!-- Formulário para cadastro de itens - só exibido se logado -->
+        <form id="adminForm" style="display: none;">
             <label for="itemName">Nome do Item:</label>
             <input type="text" id="itemName" required>
-            
+
             <label for="itemValue">Valor (R$):</label>
             <input type="number" id="itemValue" required>
-            
+
             <label for="itemDescription">Descrição:</label>
             <textarea id="itemDescription" required></textarea>
-            
+
             <label for="itemImage">Imagem:</label>
-            <input type="file" id="itemImage" accept="image/png, image/jpeg" required>
+            <input type="file" id="itemImage" accept="image/*" required>
 
             <button type="submit">Cadastrar Item</button>
         </form>
 
-        <h2>Itens Cadastrados</h2>
-        <div id="itemsContainer"></div>
+        <!-- Container para exibir itens cadastrados como cards com opções de edição/exclusão -->
+        <div id="itensContainer"></div>
     </main>
 
+    <!-- Script para manipulação de dados e exibição dos itens -->
     <script src="script.js"></script>
 </body>
 </html>
