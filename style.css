@@ -1,101 +1,169 @@
-/* Estilo para o header */
+/* Estilos base */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
 header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    background-color: #2f8e41; /* Verde */
+    background-color: #4CAF50;
     color: white;
+    padding: 15px;
 }
 
 header img {
-    width: 50px;
-    margin-right: 10px;
+    height: 40px;
 }
 
 header nav a {
-    margin: 0 10px;
     color: white;
+    margin-right: 15px;
     text-decoration: none;
 }
 
-header nav a:hover {
-    text-decoration: underline;
+main {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-/* Estilo dos cards */
-#itensContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.card {
-    display: inline-block;
-    width: 250px;
-    border: 1px solid #ccc;
-    padding: 16px;
-    margin: 16px;
+/* Estilos para card de login e cadastro */
+.card-form {
+    background-color: white;
+    padding: 30px;
     border-radius: 8px;
-    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 50px auto;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-form h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Formulário de login e cadastro */
+form input[type="text"],
+form input[type="password"],
+form input[type="number"],
+form textarea,
+form input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+form button[type="submit"],
+form button[type="button"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px; /* Espaço entre os botões */
+}
+
+form button[type="submit"]:hover,
+form button[type="button"]:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para os cards de itens */
+.card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    width: 200px;
+    text-align: center;
+    margin: 10px;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .card img {
     width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 4px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-.card button {
-    margin: 5px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.card p {
     font-size: 14px;
+    color: #666;
 }
 
-.card button:nth-child(5) {
+/* Botões de editar e excluir */
+.card button {
     background-color: #4CAF50;
     color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-right: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.card button:nth-child(6) {
-    background-color: #f44336;
+.card button:hover {
+    background-color: #45a049;
+}
+
+/* Tabela de relatório */
+#reportTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#reportTable th, #reportTable td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+#reportTable th {
+    background-color: #4CAF50;
     color: white;
-}
-
-
-/* Estilo básico do formulário */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 300px;
-    margin: 0 auto;
-}
-
-form label {
     font-weight: bold;
 }
 
-form input, form textarea, form button {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+#reportTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
-form button {
-    background-color: #2f8e41;
+#reportTable tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+#logoutLink {
     color: white;
-    cursor: pointer;
-    border: none;
-}
-
-form button:hover {
-    background-color: #277234;
+    text-decoration: none;
 }
