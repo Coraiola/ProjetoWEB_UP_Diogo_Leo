@@ -111,7 +111,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funções de edição e exclusão de item
     window.editItem = (index) => {
-        // Código de edição...
+        const items = JSON.parse(localStorage.getItem("items")) || [];
+        const item = items[index];
+
+        document.getElementById("itemName").value = item.name;
+        document.getElementById("itemValue").value = item.value;
+        document.getElementById("itemDescription").value = item.description;
+        
+        const submitButton = document.querySelector("#adminForm button[type='submit']");
+        submitButton.textContent = "Atualizar Item";
+
+        // Configura o evento de atualização temporariamente
+        const originalHandler = submitButton.onclick;
+        submitButton.onclick = (e) => {
+            e.preventDefault();
+
+            // Atualizar dados do item
+            item.name = document.getElementById("itemName").value;
+            item.value = document.getElementById("itemValue").value;
+            item.description = document.getElementById("itemDescription").value;
+
+            const imageFile = document.getElementById("itemImage").files[0];
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    item.image = reader.result;
+                    localStorage.setItem("items", JSON.stringify(items));
+                    displayItems(true);
+                    adminForm.reset();
+                    submitButton.textContent = "Cadastrar Item";
+                    submitButton.onclick = originalHandler;
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                localStorage.setItem("items", JSON.stringify(items));
+                displayItems(true);
+                adminForm.reset();
+                submitButton.textContent = "Cadastrar Item";
+                submitButton.onclick = originalHandler;
+            }
+        };
     };
 
     window.deleteItem = (index) => {
