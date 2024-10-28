@@ -14,16 +14,25 @@ header {
     background-color: #4CAF50;
     color: white;
     padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Adiciona uma sombra ao header */
 }
 
 header img {
-    height: 40px;
+    height: 50px; /* Aumenta um pouco o tamanho da logo */
+    margin-right: 20px; /* Adiciona um espaço entre a logo e os links de navegação */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)); /* Adiciona uma sombra à logo para destacar */
+    border-radius: 5px; /* Arredonda levemente os cantos da imagem da logo */
 }
 
 header nav a {
     color: white;
     margin-right: 15px;
     text-decoration: none;
+    font-weight: bold;
+}
+
+header nav a:hover {
+    text-decoration: underline; /* Adiciona um sublinhado ao passar o mouse para melhor visualização */
 }
 
 main {
@@ -65,7 +74,8 @@ form input[type="file"] {
     box-sizing: border-box;
 }
 
-form button[type="submit"] {
+form button[type="submit"],
+form button[type="button"] {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -75,9 +85,11 @@ form button[type="submit"] {
     border-radius: 5px;
     width: 100%;
     transition: background-color 0.3s ease;
+    margin-bottom: 10px; 
 }
 
-form button[type="submit"]:hover {
+form button[type="submit"]:hover,
+form button[type="button"]:hover {
     background-color: #45a049;
 }
 
