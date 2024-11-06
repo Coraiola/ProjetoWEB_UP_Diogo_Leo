@@ -18,8 +18,11 @@
     </header>
 
     <main>
-        <h1>Relatório de Itens Cadastrados</h1>
-        <table id="reportTable">
+        <h1>Relatório</h1>
+
+        <!-- Tabela de produtos fixos -->
+        <h2>Produtos</h2>
+        <table id="productsTable">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -28,10 +31,58 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Linhas serão preenchidas dinamicamente -->
+                <!-- Linhas de produtos fixos -->
+                <tr>
+                    <td>Produto 1</td>
+                    <td>R$ 100,00</td>
+                    <td>Descrição do Produto 1</td>
+                </tr>
+                <tr>
+                    <td>Produto 2</td>
+                    <td>R$ 150,00</td>
+                    <td>Descrição do Produto 2</td>
+                </tr>
+                <tr>
+                    <td>Produto 3</td>
+                    <td>R$ 200,00</td>
+                    <td>Descrição do Produto 3</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Tabela de usuários cadastrados -->
+        <h2>Usuários Cadastrados</h2>
+        <table id="usersTable">
+            <thead>
+                <tr>
+                    <th>Usuário</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linhas de usuários serão preenchidas dinamicamente -->
+            </tbody>
+        </table>
+
+        <!-- Tabela de avaliações -->
+        <h2>Avaliações</h2>
+        <table id="reviewsTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Avaliação</th>
+                    <th>Comentário</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linhas de avaliações serão preenchidas dinamicamente -->
             </tbody>
         </table>
     </main>
+
+    <!-- Rodapé com direitos autorais -->
+    <footer>
+        <p>&copy; 2024 Todos os direitos reservados.</p>
+    </footer>
 
     <!-- Script para manipulação de dados e exibição dos itens -->
     <script src="script.js"></script>

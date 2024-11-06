@@ -18,10 +18,57 @@
 
     <main>
         <h1>Bem-vindo!</h1>
-        <div id="itensContainer"></div>
+
+        <!-- Cards de produtos fixos -->
+        <div class="card">
+            <img src="produto1.png" alt="Produto 1">
+            <h3>Produto 1</h3>
+            <p>Descrição do Produto 1</p>
+            <p><strong>Valor:</strong> R$ 100,00</p>
+        </div>
+        <div class="card">
+            <img src="produto2.png" alt="Produto 2">
+            <h3>Produto 2</h3>
+            <p>Descrição do Produto 2</p>
+            <p><strong>Valor:</strong> R$ 200,00</p>
+        </div>
+        <div class="card">
+            <img src="produto3.png" alt="Produto 3">
+            <h3>Produto 3</h3>
+            <p>Descrição do Produto 3</p>
+            <p><strong>Valor:</strong> R$ 300,00</p>
+        </div>
+
+        <!-- Formulário de Avaliação -->
+        <section id="avaliacao">
+            <h2>Avalie Nosso Serviço</h2>
+            <form id="avaliacaoForm">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" required>
+
+                <label for="estrelas">Avaliação:</label>
+                <select id="estrelas" required>
+                    <option value="1">1 Estrela</option>
+                    <option value="2">2 Estrelas</option>
+                    <option value="3">3 Estrelas</option>
+                    <option value="4">4 Estrelas</option>
+                    <option value="5">5 Estrelas</option>
+                </select>
+
+                <label for="comentario">Comentário (Opcional):</label>
+                <textarea id="comentario"></textarea>
+
+                <button type="submit">Enviar Avaliação</button>
+            </form>
+        </section>
     </main>
 
-    <!-- Script para exibir itens na página inicial -->
+    <!-- Rodapé com direitos autorais -->
+    <footer>
+        <p>&copy; 2024 Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Script para gerenciar avaliações -->
     <script src="script.js"></script>
 </body>
 </html>

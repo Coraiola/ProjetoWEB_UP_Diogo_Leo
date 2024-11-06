@@ -12,37 +12,64 @@
         <img src="logo.png" alt="Logo" />
         <nav>
             <a href="index.html">Home</a>
-            <a id="authLink" href="administracao.html">Administração</a>
-            <a href="relatorio.html">Relatório</a>
+            <a href="administracao.html">Administração</a>
+            <a href="relatorio.html" id="reportLink">Relatório</a>
             <a href="#" id="logoutLink">Logout</a>
         </nav>
     </header>
 
     <main>
-        <h1>Página de Administração</h1>
-        
-        <!-- Formulário para cadastro de itens - só exibido se logado -->
-        <form id="adminForm" style="display: none;">
-            <label for="itemName">Nome do Item:</label>
-            <input type="text" id="itemName" required>
+        <h1>Administração de Produtos</h1>
 
-            <label for="itemValue">Valor (R$):</label>
-            <input type="number" id="itemValue" required>
-
-            <label for="itemDescription">Descrição:</label>
-            <textarea id="itemDescription" required></textarea>
-
-            <label for="itemImage">Imagem:</label>
-            <input type="file" id="itemImage" accept="image/*" required>
-
-            <button type="submit">Cadastrar Item</button>
-        </form>
-
-        <!-- Container para exibir itens cadastrados como cards com opções de edição/exclusão -->
-        <div id="itensContainer"></div>
+        <!-- Tabela de produtos para edição e exclusão -->
+        <table id="adminProductsTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Valor</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linhas dos produtos fixos para edição e exclusão -->
+                <tr>
+                    <td><input type="text" id="productName1" value="Produto 1"></td>
+                    <td><input type="text" id="productValue1" value="R$ 100,00"></td>
+                    <td><input type="text" id="productDescription1" value="Descrição do Produto 1"></td>
+                    <td>
+                        <button onclick="updateProduct(1)">Salvar</button>
+                        <button onclick="deleteProduct(1)">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="productName2" value="Produto 2"></td>
+                    <td><input type="text" id="productValue2" value="R$ 150,00"></td>
+                    <td><input type="text" id="productDescription2" value="Descrição do Produto 2"></td>
+                    <td>
+                        <button onclick="updateProduct(2)">Salvar</button>
+                        <button onclick="deleteProduct(2)">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="productName3" value="Produto 3"></td>
+                    <td><input type="text" id="productValue3" value="R$ 200,00"></td>
+                    <td><input type="text" id="productDescription3" value="Descrição do Produto 3"></td>
+                    <td>
+                        <button onclick="updateProduct(3)">Salvar</button>
+                        <button onclick="deleteProduct(3)">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </main>
 
-    <!-- Script para manipulação de dados e exibição dos itens -->
+    <!-- Rodapé com direitos autorais -->
+    <footer>
+        <p>&copy; 2024 Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Script externo para manipulação dos produtos -->
     <script src="script.js"></script>
 </body>
 </html>
