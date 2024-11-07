@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Funções de login e cadastro
     const loginForm = document.getElementById("loginForm");
     if (loginForm) {
         loginForm.addEventListener("submit", (e) => {
@@ -39,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Função para verificar o login e ajustar os links de navegação
     const isLoggedIn = localStorage.getItem("loggedIn") === "true";
     const authLink = document.getElementById("authLink");
     const logoutLink = document.getElementById("logoutLink");
@@ -58,76 +56,90 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Produtos fixos
-    const fixedProducts = [
-        { name: "Produto 1", value: "R$ 100,00", description: "Descrição do Produto 1" },
-        { name: "Produto 2", value: "R$ 150,00", description: "Descrição do Produto 2" },
-        { name: "Produto 3", value: "R$ 200,00", description: "Descrição do Produto 3" }
-    ];
+    // Função para exibir produtos fixos na tabela de administração
+    function displayAdminProducts() {
+        const productsList = document.getElementById("productsList");
+        const products = JSON.parse(localStorage.getItem("products")) || [
+            { id: 1, name: "Produto 1", value: "R$ 100,00", description: "Descrição do Produto 1" },
+            { id: 2, name: "Produto 2", value: "R$ 150,00", description: "Descrição do Produto 2" },
+            { id: 3, name: "Produto 3", value: "R$ 200,00", description: "Descrição do Produto 3" }
+        ];
 
-    // Função para exibir produtos fixos
-    function displayFixedProducts(containerId) {
-        const container = document.getElementById(containerId);
-        if (container) {
-            container.innerHTML = "";
-            fixedProducts.forEach(product => {
-                const card = document.createElement("div");
-                card.className = "card";
-                card.innerHTML = `
-                    <h3>${product.name}</h3>
-                    <p><strong>Valor:</strong> ${product.value}</p>
-                    <p>${product.description}</p>
-                `;
-                container.appendChild(card);
-            });
-        }
+        productsList.innerHTML = ""; // Limpa a tabela antes de exibir novamente
+        products.forEach(product => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td><input type="text" id="productName${product.id}" value="${product.name}"></td>
+                <td><input type="text" id="productValue${product.id}" value="${product.value}"></td>
+                <td><input type="text" id="productDescription${product.id}" value="${product.description}"></td>
+                <td>
+                    <button onclick="updateProduct(${product.id})">Salvar</button>
+                    <button onclick="deleteProduct(${product.id})">Excluir</button>
+                </td>
+            `;
+
+            productsList.appendChild(row);
+        });
     }
 
-    // Função para exibir relatório de produtos, usuários e avaliações
-    function displayReport() {
-        const productTableBody = document.getElementById("reportProductsTableBody");
-        const userTableBody = document.getElementById("reportUsersTableBody");
-        const ratingTableBody = document.getElementById("reportRatingsTableBody");
-        
-        if (productTableBody) {
-            productTableBody.innerHTML = "";
-            fixedProducts.forEach(product => {
-                const row = productTableBody.insertRow();
-                row.insertCell(0).textContent = product.name;
-                row.insertCell(1).textContent = product.value;
-                row.insertCell(2).textContent = product.description;
-            });
+    // Função para atualizar um produto
+    window.updateProduct = (id) => {
+        const name = document.getElementById(`productName${id}`).value;
+        const value = document.getElementById(`productValue${id}`).value;
+        const description = document.getElementById(`productDescription${id}`).value;
+
+        if (!name || !value || !description) {
+            alert("Preencha todos os campos.");
+            return;
         }
 
-        if (userTableBody) {
-            const users = JSON.parse(localStorage.getItem("users")) || [];
-            userTableBody.innerHTML = "";
-            users.forEach(user => {
-                const row = userTableBody.insertRow();
-                row.insertCell(0).textContent = user.username;
-            });
-        }
+        const products = JSON.parse(localStorage.getItem("products")) || [];
+        const productIndex = products.findIndex(product => product.id === id);
 
-        if (ratingTableBody) {
-            const ratings = JSON.parse(localStorage.getItem("ratings")) || [];
-            ratingTableBody.innerHTML = "";
-            ratings.forEach(rating => {
-                const row = ratingTableBody.insertRow();
-                row.insertCell(0).textContent = rating.name;
-                row.insertCell(1).textContent = rating.stars;
-                row.insertCell(2).textContent = rating.comment || "-";
-            });
+        if (productIndex !== -1) {
+            products[productIndex] = { id, name, value, description };
+            localStorage.setItem("products", JSON.stringify(products));
+            alert("Produto atualizado com sucesso!");
         }
+    };
+
+    // Função para excluir um produto
+    window.deleteProduct = (id) => {
+        const products = JSON.parse(localStorage.getItem("products")) || [];
+        const updatedProducts = products.filter(product => product.id !== id);
+
+        localStorage.setItem("products", JSON.stringify(updatedProducts));
+        alert("Produto excluído com sucesso!");
+        displayAdminProducts(); // Atualiza a lista de produtos
+    };
+
+    // Exibe os produtos ao carregar a página de administração
+    if (window.location.pathname.includes("administracao.html")) {
+        displayAdminProducts();
     }
 
-    // Função para enviar avaliação
-    const ratingForm = document.getElementById("ratingForm");
+    // Gerenciamento do formulário de avaliação com nota
+    const ratingForm = document.getElementById("avaliacaoForm");
     if (ratingForm) {
+        const notaButtons = document.querySelectorAll("#nota button");
+        const ratingInput = document.getElementById("rating");
+
+        notaButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const rating = button.getAttribute("data-value");
+                ratingInput.value = rating;
+
+                notaButtons.forEach(btn => btn.classList.remove("selected"));
+                button.classList.add("selected");
+            });
+        });
+
         ratingForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            const name = document.getElementById("ratingName").value;
-            const stars = document.getElementById("ratingStars").value;
-            const comment = document.getElementById("ratingComment").value;
+            const name = document.getElementById("nome").value;
+            const stars = ratingInput.value;
+            const comment = document.getElementById("comentario").value;
 
             if (!name || !stars) {
                 alert("Preencha o nome e a avaliação.");
@@ -139,10 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("ratings", JSON.stringify(ratings));
             alert("Avaliação enviada com sucesso!");
             ratingForm.reset();
+            notaButtons.forEach(btn => btn.classList.remove("selected"));
         });
     }
 
-    // Exibir produtos fixos na página inicial e relatório na página de relatório
     if (window.location.pathname.includes("index.html")) {
         displayFixedProducts("itensContainer");
     } else if (window.location.pathname.includes("relatorio.html")) {

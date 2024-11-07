@@ -31,35 +31,8 @@
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Linhas dos produtos fixos para edição e exclusão -->
-                <tr>
-                    <td><input type="text" id="productName1" value="Produto 1"></td>
-                    <td><input type="text" id="productValue1" value="R$ 100,00"></td>
-                    <td><input type="text" id="productDescription1" value="Descrição do Produto 1"></td>
-                    <td>
-                        <button onclick="updateProduct(1)">Salvar</button>
-                        <button onclick="deleteProduct(1)">Excluir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="text" id="productName2" value="Produto 2"></td>
-                    <td><input type="text" id="productValue2" value="R$ 150,00"></td>
-                    <td><input type="text" id="productDescription2" value="Descrição do Produto 2"></td>
-                    <td>
-                        <button onclick="updateProduct(2)">Salvar</button>
-                        <button onclick="deleteProduct(2)">Excluir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="text" id="productName3" value="Produto 3"></td>
-                    <td><input type="text" id="productValue3" value="R$ 200,00"></td>
-                    <td><input type="text" id="productDescription3" value="Descrição do Produto 3"></td>
-                    <td>
-                        <button onclick="updateProduct(3)">Salvar</button>
-                        <button onclick="deleteProduct(3)">Excluir</button>
-                    </td>
-                </tr>
+            <tbody id="productsList">
+                <!-- As linhas dos produtos serão geradas dinamicamente com o script -->
             </tbody>
         </table>
     </main>
