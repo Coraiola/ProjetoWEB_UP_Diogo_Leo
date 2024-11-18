@@ -42,21 +42,18 @@ function setupAuthHandlers() {
 
     // Ajustar links e exibição com base no login
     if (authLink) {
-        // Se o usuário estiver logado, esconde o link "Login ou Cadastro" e exibe "Logout"
         authLink.style.display = isLoggedIn ? "none" : "inline";
     }
 
     if (adminLink) {
-        // Se o usuário estiver logado, mostra o link para administração
         adminLink.style.display = isLoggedIn ? "inline" : "none";
     }
 
     if (logoutLink) {
-        // Exibe ou oculta o link "Logout" com base no status de login
         logoutLink.style.display = isLoggedIn ? "inline" : "none";
         logoutLink.addEventListener("click", () => {
             localStorage.removeItem("loggedIn");
-            window.location.href = "index.html";  // Redireciona para a página inicial após o logout
+            window.location.href = "index.html";
         });
     }
 }
@@ -69,8 +66,7 @@ function handleLogin() {
 
     if (user) {
         localStorage.setItem("loggedIn", "true");
-        // Agora vamos garantir que o link da administração seja visível na página inicial
-        window.location.href = "index.html";  // Redireciona para a página inicial após o login
+        window.location.href = "index.html"; // Redireciona para a página inicial após o login
     } else {
         alert("Usuário ou senha incorretos.");
     }
@@ -112,11 +108,19 @@ function handleItemSubmission(form) {
     const description = document.getElementById("itemDescription").value;
     const imageFile = document.getElementById("itemImage").files[0];
 
-    if (imageFile) {
+    if (name && value && description && imageFile) {
+        const items = JSON.parse(localStorage.getItem("items")) || [];
+        
+        // Verificar se o item já existe (não permitir duplicação)
+        const existingItem = items.find(item => item.name.toLowerCase() === name.toLowerCase());
+        if (existingItem) {
+            alert("Este item já foi cadastrado!");
+            return;
+        }
+
         const reader = new FileReader();
         reader.onload = function () {
             const image = reader.result;
-            const items = JSON.parse(localStorage.getItem("items")) || [];
             items.push({ name, value, description, image });
             localStorage.setItem("items", JSON.stringify(items));
             form.reset();
@@ -125,7 +129,7 @@ function handleItemSubmission(form) {
         };
         reader.readAsDataURL(imageFile);
     } else {
-        alert("Por favor, selecione uma imagem para o item.");
+        alert("Por favor, preencha todos os campos obrigatórios e selecione uma imagem.");
     }
 }
 
@@ -192,7 +196,7 @@ function displayItems(isAdmin) {
                     ${isAdmin ? ` 
                         <button onclick="editItem(${index})">Editar</button>
                         <button onclick="deleteItem(${index})">Excluir</button>
-                    ` : ''}
+                    ` : ''} 
                 `;
                 itemsContainer.appendChild(card);
             });
@@ -221,7 +225,7 @@ window.editItem = function (index) {
     submitButton.textContent = "Atualizar Item";
 
     // Atualizar o item no localStorage ao clicar no botão de "Atualizar Item"
-    submitButton.onclick = function (e) {
+    document.getElementById("adminForm").onsubmit = function (e) {
         e.preventDefault();
 
         // Atualizar os dados do item com os valores dos campos
@@ -236,27 +240,47 @@ window.editItem = function (index) {
             reader.onload = function () {
                 item.image = reader.result;
                 localStorage.setItem("items", JSON.stringify(items));
-                submitButton.textContent = "Cadastrar Item";
                 displayItems(true);
                 alert("Item atualizado com sucesso!");  // Alerta de sucesso na atualização
+
+                // Resetar o formulário para o estado de cadastro
+                resetForm(submitButton);
             };
             reader.readAsDataURL(imageFile);
         } else {
             localStorage.setItem("items", JSON.stringify(items));
             displayItems(true);
             alert("Item atualizado com sucesso!");  // Alerta de sucesso na atualização
+
+            // Resetar o formulário para o estado de cadastro
+            resetForm(submitButton);
         }
     };
 };
+
+// Função para resetar o formulário e o botão
+function resetForm(submitButton) {
+    const form = document.getElementById("adminForm");
+    form.reset();  // Limpa os campos do formulário
+    submitButton.textContent = "Cadastrar Item";  // Restaura o texto original do botão de cadastro
+    // Redefine o evento de submit para cadastrar novos itens
+    document.getElementById("adminForm").onsubmit = (e) => {
+        e.preventDefault();
+        handleItemSubmission(form);
+    };
+}
 
 window.deleteItem = function (index) {
     const items = JSON.parse(localStorage.getItem("items")) || [];
     items.splice(index, 1);
     localStorage.setItem("items", JSON.stringify(items));
-    displayItems(true);
-    alert("Item excluído com sucesso!");  // Alerta de sucesso na exclusão
+    displayItems(true);  // Atualiza a lista de itens após a exclusão
+    alert("Item excluído com sucesso!");  // Alerta de exclusão
 };
 
+/**
+ * Formulário de avaliação
+ */
 // Função para configurar o formulário de avaliações na página inicial
 function setupReviewForm() {
     const form = document.getElementById("avaliacaoForm");
@@ -287,3 +311,4 @@ function handleReviewSubmission() {
     document.getElementById("avaliacaoForm").reset();
     alert("Obrigado pela sua avaliação!");
 }
+
