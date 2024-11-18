@@ -18,10 +18,61 @@
 
     <main>
         <h1>Bem-vindo!</h1>
-        <div id="itensContainer"></div>
+
+        <!-- Seção de produtos fixos -->
+        <section>
+            <h2>Produtos em destaque</h2>
+            <div id="produtosFixos" class="cards-container">
+                <div class="card">
+                    <h3>Produto 1</h3>
+                    <p>Descrição do Produto 1</p>
+                    <p><strong>R$ 100,00</strong></p>
+                </div>
+                <div class="card">
+                    <h3>Produto 2</h3>
+                    <p>Descrição do Produto 2</p>
+                    <p><strong>R$ 200,00</strong></p>
+                </div>
+                <div class="card">
+                    <h3>Produto 3</h3>
+                    <p>Descrição do Produto 3</p>
+                    <p><strong>R$ 300,00</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de produtos adicionais -->
+        <section>
+            <h2>Produtos adicionais</h2>
+            <div id="itensContainer" class="cards-container">
+                <!-- Os produtos adicionados dinamicamente aparecerão aqui -->
+            </div>
+        </section>
+
+        <!-- Seção de avaliação -->
+        <section>
+            <h2>Deixe sua Avaliação</h2>
+            <form id="avaliacaoForm">
+                <label for="nome">Seu Nome:</label>
+                <input type="text" id="nome" required>
+
+                <label for="nota">Nota (1 a 5):</label>
+                <input type="number" id="nota" min="1" max="5" required>
+
+                <label for="comentario">Comentário (opcional):</label>
+                <textarea id="comentario"></textarea>
+
+                <button type="submit">Enviar Avaliação</button>
+            </form>
+        </section>
     </main>
 
-    <!-- Script para exibir itens na página inicial -->
+    <!-- Rodapé responsivo -->
+    <footer>
+        <p>&copy; 2024 Empresa. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Script para exibir itens adicionais e avaliações -->
     <script src="script.js"></script>
 </body>
 </html>

@@ -20,17 +20,23 @@
         <h1>Login/Cadastro</h1>
         <form id="loginForm">
             <label for="username">Usuário:</label>
-            <input type="text" id="username" required>
+            <input type="text" id="username" placeholder="Digite seu usuário" required>
 
             <label for="password">Senha:</label>
-            <input type="password" id="password" required>
+            <input type="password" id="password" placeholder="Digite sua senha" required>
 
-            <button type="submit">Entrar</button>
-            <button type="button" id="registerBtn">Cadastrar</button>
+            <div class="form-actions">
+                <button type="submit">Entrar</button>
+                <button type="button" id="registerBtn">Cadastrar</button>
+            </div>
         </form>
     </main>
 
-    <!-- Script para manipulação de dados e exibição dos itens -->
+    <!-- Rodapé responsivo -->
+    <footer>
+        <p>&copy; 2024 Empresa. Todos os direitos reservados.</p>
+    </footer>
+    
     <script src="script.js"></script>
 </body>
 </html>

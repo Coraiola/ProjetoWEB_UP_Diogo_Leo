@@ -4,6 +4,10 @@ body {
     background-color: #f5f5f5;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    line-height: 1.6;
 }
 
 /* Header */
@@ -14,14 +18,14 @@ header {
     background-color: #4CAF50;
     color: white;
     padding: 15px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Adiciona uma sombra ao header */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 header img {
-    height: 50px; /* Aumenta um pouco o tamanho da logo */
-    margin-right: 20px; /* Adiciona um espaço entre a logo e os links de navegação */
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)); /* Adiciona uma sombra à logo para destacar */
-    border-radius: 5px; /* Arredonda levemente os cantos da imagem da logo */
+    height: 50px;
+    margin-right: 20px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    border-radius: 5px;
 }
 
 header nav a {
@@ -29,19 +33,24 @@ header nav a {
     margin-right: 15px;
     text-decoration: none;
     font-weight: bold;
+    transition: color 0.3s ease;
 }
 
-header nav a:hover {
-    text-decoration: underline; /* Adiciona um sublinhado ao passar o mouse para melhor visualização */
+header nav a:hover,
+header nav a:focus {
+    color: #ddd;
+    text-decoration: underline;
 }
 
 main {
     padding: 20px;
+    padding-bottom: 10%;
     max-width: 900px;
     margin: 0 auto;
+    flex: 1;
 }
 
-/* Estilos para card de login e cadastro */
+/* Cartões de formulário */
 .card-form {
     background-color: white;
     padding: 30px;
@@ -58,7 +67,7 @@ main {
     font-size: 24px;
 }
 
-/* Formulário de login e cadastro */
+/* Formulário */
 form input[type="text"],
 form input[type="password"],
 form input[type="number"],
@@ -85,7 +94,7 @@ form button[type="button"] {
     border-radius: 5px;
     width: 100%;
     transition: background-color 0.3s ease;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
 form button[type="submit"]:hover,
@@ -93,17 +102,25 @@ form button[type="button"]:hover {
     background-color: #45a049;
 }
 
-/* Estilos para os cards de itens */
+form button[type="submit"]:focus,
+form button[type="button"]:focus {
+    outline: 2px dashed #4CAF50;
+    outline-offset: 2px;
+}
+
+/* Cards */
 .card {
     border: 1px solid #ddd;
     padding: 15px;
     border-radius: 8px;
-    width: 200px;
+    width: calc(100% - 20px);
+    max-width: 200px;
     text-align: center;
-    margin: 10px;
+    margin: 10px auto;
     display: inline-block;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s ease;
+    background-color: white;
 }
 
 .card:hover {
@@ -127,7 +144,6 @@ form button[type="button"]:hover {
     color: #666;
 }
 
-/* Botões de editar e excluir */
 .card button {
     background-color: #4CAF50;
     color: white;
@@ -156,12 +172,14 @@ form button[type="button"]:hover {
     border: 1px solid #ddd;
     padding: 12px;
     text-align: left;
+    font-size: 14px;
 }
 
 #reportTable th {
     background-color: #4CAF50;
     color: white;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 #reportTable tbody tr:nth-child(even) {
@@ -175,4 +193,65 @@ form button[type="button"]:hover {
 #logoutLink {
     color: white;
     text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#logoutLink:hover {
+    color: #ddd;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    header img {
+        margin-bottom: 10px;
+    }
+
+    .card {
+        width: calc(100% - 20px);
+    }
+
+    #reportTable th,
+    #reportTable td {
+        font-size: 12px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    form input[type="text"],
+    form input[type="password"],
+    form input[type="number"],
+    form textarea,
+    form input[type="file"],
+    form button {
+        font-size: 14px;
+    }
+
+    .card {
+        width: calc(100% - 10px);
+        margin: 5px;
+    }
+
+    #reportTable th,
+    #reportTable td {
+        font-size: 11px;
+    }
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #4CAF50; /* Cor do fundo do footer */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    z-index: 10; /* Garante que o footer fique sobre outros conteúdos, se necessário */
 }
