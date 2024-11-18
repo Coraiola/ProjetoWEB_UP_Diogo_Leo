@@ -161,43 +161,87 @@ form button[type="button"]:focus {
     background-color: #45a049;
 }
 
-/* Tabela de relatório */
-#reportTable {
+/* Tabela de relatório e CRUD */
+table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
-#reportTable th, #reportTable td {
-    border: 1px solid #ddd;
-    padding: 12px;
+th, td {
+    padding: 12px 20px;
     text-align: left;
     font-size: 14px;
+    color: #333;
 }
 
-#reportTable th {
+th {
     background-color: #4CAF50;
     color: white;
     font-weight: bold;
     text-transform: uppercase;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
-#reportTable tbody tr:nth-child(even) {
+td {
+    background-color: white;
+    transition: background-color 0.3s ease;
+}
+
+tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-#reportTable tbody tr:hover {
+tr:hover {
     background-color: #f1f1f1;
 }
 
-#logoutLink {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s ease;
+td:first-child {
+    font-weight: bold;
 }
 
-#logoutLink:hover {
-    color: #ddd;
+td:last-child {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-right: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button.edit {
+    background-color: #f39c12;
+}
+
+button.delete {
+    background-color: #e74c3c;
+}
+
+button.edit:hover {
+    background-color: #f1c40f;
+}
+
+button.delete:hover {
+    background-color: #c0392b;
 }
 
 /* Responsividade */
@@ -211,14 +255,14 @@ form button[type="button"]:focus {
         margin-bottom: 10px;
     }
 
-    .card {
-        width: calc(100% - 20px);
-    }
-
-    #reportTable th,
-    #reportTable td {
+    table th,
+    table td {
         font-size: 12px;
         padding: 10px;
+    }
+
+    td:last-child {
+        font-size: 12px;
     }
 }
 
@@ -237,9 +281,13 @@ form button[type="button"]:focus {
         margin: 5px;
     }
 
-    #reportTable th,
-    #reportTable td {
+    table th,
+    table td {
         font-size: 11px;
+    }
+
+    button {
+        font-size: 12px;
     }
 }
 
@@ -249,9 +297,9 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #4CAF50; /* Cor do fundo do footer */
+    background-color: #4CAF50;
     color: white;
     text-align: center;
     padding: 20px 0;
-    z-index: 10; /* Garante que o footer fique sobre outros conteúdos, se necessário */
+    z-index: 10;
 }

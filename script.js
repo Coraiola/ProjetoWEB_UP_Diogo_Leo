@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function setupAuthHandlers() {
     const loginForm = document.getElementById("loginForm");
     const authLink = document.getElementById("authLink");
+    const adminLink = document.getElementById("adminLink");
     const logoutLink = document.getElementById("logoutLink");
 
     // Login
@@ -41,14 +42,21 @@ function setupAuthHandlers() {
 
     // Ajustar links e exibição com base no login
     if (authLink) {
-        authLink.href = isLoggedIn ? "administracao.html" : "login.html";
+        // Se o usuário estiver logado, esconde o link "Login ou Cadastro" e exibe "Logout"
+        authLink.style.display = isLoggedIn ? "none" : "inline";
+    }
+
+    if (adminLink) {
+        // Se o usuário estiver logado, mostra o link para administração
+        adminLink.style.display = isLoggedIn ? "inline" : "none";
     }
 
     if (logoutLink) {
+        // Exibe ou oculta o link "Logout" com base no status de login
         logoutLink.style.display = isLoggedIn ? "inline" : "none";
         logoutLink.addEventListener("click", () => {
             localStorage.removeItem("loggedIn");
-            window.location.href = "index.html";
+            window.location.href = "index.html";  // Redireciona para a página inicial após o logout
         });
     }
 }
@@ -61,7 +69,8 @@ function handleLogin() {
 
     if (user) {
         localStorage.setItem("loggedIn", "true");
-        window.location.href = "administracao.html";
+        // Agora vamos garantir que o link da administração seja visível na página inicial
+        window.location.href = "index.html";  // Redireciona para a página inicial após o login
     } else {
         alert("Usuário ou senha incorretos.");
     }
@@ -175,7 +184,7 @@ function displayItems(isAdmin) {
             items.forEach((item, index) => {
                 const card = document.createElement("div");
                 card.className = "card";
-                card.innerHTML = `
+                card.innerHTML = ` 
                     <img src="${item.image}" alt="${item.name}">
                     <h3>${item.name}</h3>
                     <p>${item.description}</p>
@@ -202,32 +211,40 @@ window.editItem = function (index) {
     const items = JSON.parse(localStorage.getItem("items")) || [];
     const item = items[index];
 
+    // Preencher os campos do formulário com os dados do item
     document.getElementById("itemName").value = item.name;
     document.getElementById("itemValue").value = item.value;
     document.getElementById("itemDescription").value = item.description;
 
+    // Trocar o texto do botão para "Atualizar Item"
     const submitButton = document.querySelector("#adminForm button[type='submit']");
     submitButton.textContent = "Atualizar Item";
 
-    submitButton.onclick = (e) => {
+    // Atualizar o item no localStorage ao clicar no botão de "Atualizar Item"
+    submitButton.onclick = function (e) {
         e.preventDefault();
+
+        // Atualizar os dados do item com os valores dos campos
         item.name = document.getElementById("itemName").value;
         item.value = document.getElementById("itemValue").value;
         item.description = document.getElementById("itemDescription").value;
 
+        // Atualizar a imagem do item se uma nova for selecionada
         const imageFile = document.getElementById("itemImage").files[0];
         if (imageFile) {
             const reader = new FileReader();
-            reader.onload = () => {
+            reader.onload = function () {
                 item.image = reader.result;
                 localStorage.setItem("items", JSON.stringify(items));
                 submitButton.textContent = "Cadastrar Item";
                 displayItems(true);
+                alert("Item atualizado com sucesso!");  // Alerta de sucesso na atualização
             };
             reader.readAsDataURL(imageFile);
         } else {
             localStorage.setItem("items", JSON.stringify(items));
             displayItems(true);
+            alert("Item atualizado com sucesso!");  // Alerta de sucesso na atualização
         }
     };
 };
@@ -237,6 +254,7 @@ window.deleteItem = function (index) {
     items.splice(index, 1);
     localStorage.setItem("items", JSON.stringify(items));
     displayItems(true);
+    alert("Item excluído com sucesso!");  // Alerta de sucesso na exclusão
 };
 
 // Função para configurar o formulário de avaliações na página inicial
